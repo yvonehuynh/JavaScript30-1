@@ -65,11 +65,13 @@
 
     function handleUpdate(){
       // storing any datasets with data-sizing, or other (nothing), in a variable
+      // suffix = px
+      // we put this.dataset.sizing || "" because some elements don't have the dataset.sizing attribute, and so we want to prevent it from returning undefined
       const suffix = this.dataset.sizing || "";
       // update the variable
       document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
     }
-
+    // we use the forEach method so that we can loop through EVERY element that is an input
     // listen for change event for each of the inputs
     inputs.forEach(input => input.addEventListener("change", handleUpdate));
     // we add this so that as the range mvoes, the event is constantly being updated, rather than being updated when the range stops moving, like in the above.
