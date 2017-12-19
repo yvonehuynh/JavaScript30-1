@@ -22,6 +22,21 @@
 
   <style>
 
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -45,6 +60,20 @@
   </style>
 
   <script>
+
+    const inputs = document.querySelectorAll(".controls input");
+
+    function handleUpdate(){
+      // storing any datasets with data-sizing, or other (nothing), in a variable
+      const suffix = this.dataset.sizing || "";
+      // update the variable
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    // listen for change event for each of the inputs
+    inputs.forEach(input => input.addEventListener("change", handleUpdate));
+    // we add this so that as the range mvoes, the event is constantly being updated, rather than being updated when the range stops moving, like in the above.
+    inputs.forEach(input => input.addEventListener("mousemove", handleUpdate));
   </script>
 
 </body>
